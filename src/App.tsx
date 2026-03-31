@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./App.css";
 
-// Tipo do carro
 type Carro = {
   nome: string;
   imagem: string;
@@ -12,7 +11,6 @@ type Carro = {
   raridade: string;
 };
 
-// Componente do card
 function Card(props: Carro) {
   return (
     <div className="card">
