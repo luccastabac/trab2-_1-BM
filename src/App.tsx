@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 
+// Tipo do carro
 type Carro = {
   nome: string;
   imagem: string;
@@ -11,26 +12,17 @@ type Carro = {
   raridade: string;
 };
 
-type CardProps = Carro;
-
-function Card({
-  nome,
-  imagem,
-  velocidade,
-  potencia,
-  zeroCem,
-  preco,
-  raridade,
-}: CardProps) {
+// Componente do card
+function Card(props: Carro) {
   return (
     <div className="card">
-      <h2>{nome}</h2>
-      <img src={imagem} alt={nome} className="cardImagem" />
-      <p>Velocidade: {velocidade} km/h</p>
-      <p>Potência: {potencia} cv</p>
-      <p>0 a 100: {zeroCem}s</p>
-      <p>Preço: R$ {preco}</p>
-      <p>Raridade: {raridade}</p>
+      <h2>{props.nome}</h2>
+      <img src={props.imagem} alt={props.nome} className="cardImagem" />
+      <p>Velocidade: {props.velocidade} km/h</p>
+      <p>Potência: {props.potencia} cv</p>
+      <p>0 a 100: {props.zeroCem}s</p>
+      <p>Preço: R$ {props.preco}</p>
+      <p>Raridade: {props.raridade}</p>
     </div>
   );
 }
@@ -133,20 +125,16 @@ function App() {
   const [carro2, setCarro2] = useState<Carro | null>(null);
   const [resultado, setResultado] = useState("");
 
-  function randomNumber(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
   function sortearCartas() {
-    const indice1 = randomNumber(0, carros.length - 1);
-    let indice2 = randomNumber(0, carros.length - 1);
+    let i1 = Math.floor(Math.random() * carros.length);
+    let i2 = Math.floor(Math.random() * carros.length);
 
-    while (indice1 === indice2) {
-      indice2 = randomNumber(0, carros.length - 1);
+    while (i1 === i2) {
+      i2 = Math.floor(Math.random() * carros.length);
     }
 
-    const c1 = carros[indice1];
-    const c2 = carros[indice2];
+    const c1 = carros[i1];
+    const c2 = carros[i2];
 
     setCarro1(c1);
     setCarro2(c2);
@@ -161,10 +149,8 @@ function App() {
   }
 
   return (
-    <div className="app">
-      <div className="header">
-        <h1>React Trunfo</h1>
-      </div>
+    <div className="geral">
+      <h1>React Trunfo</h1>
 
       <h2 className="subtitulo">Duelo de Cartas</h2>
 
@@ -183,8 +169,8 @@ function App() {
       <h2 className="subtitulo">Todas as Cartas</h2>
 
       <div className="galeria">
-        {carros.map((carro, index) => (
-          <Card key={index} {...carro} />
+        {carros.map((carro, i) => (
+          <Card key={i} {...carro} />
         ))}
       </div>
     </div>
